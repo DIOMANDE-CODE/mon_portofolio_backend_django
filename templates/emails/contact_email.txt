@@ -1,0 +1,11 @@
+Nouveau message reçu
+
+Nom : {{ nom }}
+Email : {{ email }}
+Sujet : {{ sujet }}
+Message :
+{{ message }}
+
+Reçu le {{ date_reception }}
+
+Ceci est un email automatique, ne pas répondre.

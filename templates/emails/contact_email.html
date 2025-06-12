@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .header { background-color: #0070f3; color: white; padding: 10px; text-align: center; }
+    .content { padding: 20px; }
+    .footer { font-size: 12px; color: gray; padding: 10px; text-align: center; }
+    .button { background-color: #0070f3; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>Nouveau message reçu</h2>
+  </div>
+  <div class="content">
+    <p><strong>Nom :</strong> {{ nom }}</p>
+    <p><strong>Email :</strong> {{ email }}</p>
+    <p><strong>Sujet :</strong> {{ sujet }}</p>
+    <p><strong>Message :</strong><br/> {{ message|linebreaks }}</p>
+    <p><small>Reçu le {{ date_reception }}</small></p>
+  </div>
+  <div class="footer">
+    <p>Ceci est un email automatique, ne pas répondre.</p>
+  </div>
+</body>
+</html>
