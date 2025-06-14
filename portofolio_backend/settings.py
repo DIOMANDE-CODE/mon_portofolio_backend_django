@@ -121,6 +121,7 @@ AUTH_USER_MODEL = 'users.Utilisateur'
 # CORS
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS","monportofoliobackenddjango-production.up.railway.app").split(",")
 CORS_ALLOW_CREDENTIALS = True
+ALLOWED_HOSTS = ["monportofoliobackenddjango-production.up.railway.app"]
 
 # Email
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
