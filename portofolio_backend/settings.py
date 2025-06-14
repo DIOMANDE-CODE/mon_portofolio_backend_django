@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Charger le fichier .env (utile en développement)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,10 +88,10 @@ WSGI_APPLICATION = 'portofolio_backend.wsgi.application'
 
 # Base de données
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),  # fallback local
+        conn_max_age=600
+    )
 }
 
 # Validation mot de passe
@@ -119,7 +120,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Utilisateur'
 
 # CORS
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS","monportofoliobackenddjango-production.up.railway.app").split(",")
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS",'').split(",")
 CORS_ALLOW_CREDENTIALS = True
 ALLOWED_HOSTS = ["monportofoliobackenddjango-production.up.railway.app"]
 
