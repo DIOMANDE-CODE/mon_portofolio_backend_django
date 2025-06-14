@@ -1,0 +1,47 @@
+name: portofolio_backend
+services:
+  web:
+    build:
+      context: E:\MES PROJETS PERSO\mon_portofolio\portofolio_backend
+      dockerfile: Dockerfile
+    command:
+      - gunicorn
+      - portofolio_backend.wsgi:application
+      - --bind
+      - 0.0.0.0:8000
+    container_name: django_web
+    environment:
+      ALLOWED_HOSTS: localhost,127.0.0.1,192.168.43.32
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://192.168.43.32:3000
+      DEBUG: "True"
+      DEFAULT_FROM_EMAIL: chezpyth@gmail.com
+      EMAIL_BACKEND: django.core.mail.backends.smtp.EmailBackend
+      EMAIL_HOST: smtp.gmail.com
+      EMAIL_HOST_PASSWORD: epiv repl gkfv vxva
+      EMAIL_HOST_USER: chezpyth@gmail.com
+      EMAIL_PORT: "587"
+      EMAIL_USE_TLS: "True"
+      SECRET_KEY: django-insecure-0)m%+19kxwa7cqk=7_+f9_wuv*zjn$$0^$$!arw@onpuvln9!i+_
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: E:\MES PROJETS PERSO\mon_portofolio\portofolio_backend
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: db_data
+        target: /app/db.sqlite3
+        volume: {}
+networks:
+  default:
+    name: portofolio_backend_default
+volumes:
+  db_data:
+    name: portofolio_backend_db_data

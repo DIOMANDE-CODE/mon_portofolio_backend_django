@@ -1,17 +1,18 @@
-# Utiliser une image officielle de Python
+# Dockerfile
 FROM python:3.11-slim
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
+# Créer le dossier de l'app
 WORKDIR /app
 
 # Installer les dépendances
 COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le reste du projet
+# Copier le projet
 COPY . .
 
-CMD gunicorn portofolio_backend.wsgi:application --bind 0.0.0.0:$PORT
+# Port d'écoute
+EXPOSE 8000
+
+# Lancement avec gunicorn
+CMD ["gunicorn", "portofolio_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
