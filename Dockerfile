@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 # Copier le reste du projet
 COPY . .
 
-CMD gunicorn myapi.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn portofolio_backend.wsgi:application --bind 0.0.0.0:$PORT
