@@ -135,7 +135,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-CSRF_TRUST_ORIGINS = ['https://monportofoliobackend.up.railway.app']
+CSRF_TRUST_ORIGINS = os.getenv("CSRF_TRUST_ORIGINS",'').split(",")
 
 
 # Email
