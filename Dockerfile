@@ -4,10 +4,14 @@ FROM python:3.11-slim
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-RUN python manage.py collectstatic --noinput
 
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie tout le projet avant toute commande utilisant manage.py
 COPY . .
+
+# Collecte des fichiers statiques
+RUN python manage.py collectstatic --noinput
 
 ENV PYTHONUNBUFFERED=1
 
