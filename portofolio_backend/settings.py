@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # Clé secrète
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default')
+SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # Mode debug
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG', '')
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
@@ -98,6 +98,10 @@ DATABASES = {
     }
 }
 
+if DEBUG == False :
+    DATABASES['default'] = dj_database_url.parse(os.getenv("DATABASE_URL", ""))
+
+
 # Validation mot de passe
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
@@ -131,7 +135,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", ""))
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "") == "True"
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
