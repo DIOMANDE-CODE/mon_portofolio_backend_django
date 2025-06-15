@@ -141,7 +141,10 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-CSRF_TRUST_ORIGINS = os.getenv("CSRF_TRUST_ORIGINS",'').split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS",'').split(",")
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
 
 
 # Email
