@@ -23,10 +23,8 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # Mode debug
-DEBUG = os.getenv('DEBUG', 'False')
+DEBUG = os.getenv('DEBUG', '') 
 
-# Hôtes autorisés
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
 INSTALLED_APPS = [
@@ -87,19 +85,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portofolio_backend.wsgi.application'
 
 # Base de données
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv("DB_ENGINE", ""),
-        'NAME': os.getenv("DB_NAME", ""),
-        'USER': os.getenv("DB_USER", ""),
-        'PASSWORD': os.getenv("DB_PASSWORD", ""),
-        'HOST': os.getenv("DB_HOST", ""),
-        'PORT': os.getenv("DB_PORT", ""),
-    }
-}
 
-if DEBUG == False :
-    DATABASES['default'] = dj_database_url.parse(os.getenv("DATABASE_URL", ""))
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL and DEBUG==False:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+else :
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv("DB_ENGINE", ""),
+            'NAME': os.getenv("DB_NAME", ""),
+            'USER': os.getenv("DB_USER", ""),
+            'PASSWORD': os.getenv("DB_PASSWORD", ""),
+            'HOST': os.getenv("DB_HOST", ""),
+            'PORT': os.getenv("DB_PORT", ""),
+        }
+    }
 
 
 # Validation mot de passe
@@ -130,7 +132,12 @@ AUTH_USER_MODEL = 'users.Utilisateur'
 # CORS
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS",'').split(",")
 CORS_ALLOW_CREDENTIALS = True
+
+# Hôtes autorisés
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+CSRF_TRUST_ORIGINS = ['https://monportofoliobackend.up.railway.app']
+
+
 # Email
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "")
