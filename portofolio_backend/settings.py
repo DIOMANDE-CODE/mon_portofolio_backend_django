@@ -144,7 +144,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS",'').split(",")
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SAMESITE = 'None'
 
 
 # Email
