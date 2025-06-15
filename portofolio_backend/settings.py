@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # Mode debug
-DEBUG = os.getenv('DEBUG', '')
+DEBUG = os.getenv('DEBUG', 'False')
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
