@@ -143,7 +143,7 @@ CORS_ALLOW_CREDENTIALS = True
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 CSRF_TRUSTED_ORIGINS = [
     "https://monportofoliobackend.up.railway.app",
-    "https://mon-portofolio-frontend-nextjs-6oquk9lxd.vercel.app"
+    "https://mon-portofolio-frontend-nextjs.vercel.app/",
 ]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
