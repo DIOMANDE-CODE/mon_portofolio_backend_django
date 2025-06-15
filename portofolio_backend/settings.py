@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # Mode debug
-DEBUG = os.getenv('DEBUG', '') 
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
 # Application definition
@@ -141,11 +141,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS",'').split(",")
+CSRF_TRUSTED_ORIGINS = [
+    "https://monportofoliobackend.up.railway.app",
+    "https://mon-portofolio-frontend-nextjs-6oquk9lxd.vercel.app"
+]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'None'
 
 
 # Email
