@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+from corsheaders.defaults import default_headers
 
 # Charger le fichier .env (utile en développement)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,9 +53,9 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.middleware.common.CommonMiddleware',
@@ -137,10 +138,17 @@ AUTH_USER_MODEL = 'users.Utilisateur'
 CORS_ALLOWED_ORIGINS = [
     "https://mon-portofolio-frontend-nextjs.vercel.app",
 ]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$"  # Pour les builds preview/dynamiques
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = [
+    "monportofoliobackend.up.railway.app",
+    "localhost",
+    "127.0.0.1",
+]
 CSRF_TRUSTED_ORIGINS = [
     "https://monportofoliobackend.up.railway.app",
     "https://mon-portofolio-frontend-nextjs.vercel.app",
@@ -148,6 +156,11 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'access-control-allow-origin',
+    'origin',
+]
 
 
 # Email
