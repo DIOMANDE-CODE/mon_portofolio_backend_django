@@ -136,7 +136,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Utilisateur'
 
 # CORS
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS",'').split(",")
+CORS_ALLOWED_ORIGINS = [
+    "https://mon-portofolio-frontend-nextjs.vercel.app",
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
