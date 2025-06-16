@@ -40,10 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    # Cloudinary
-    'cloudinary',
-    'cloudinary_storage',
-
     # Applications créées
     'users',
     'projets',
@@ -128,16 +124,6 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Configuration de cloudinary
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
-
-# Storage par défaut pour les médias (upload)
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -150,7 +136,7 @@ AUTH_USER_MODEL = 'users.Utilisateur'
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    "https://mon-portofolio-frontend-nextjs.vercel.app"
+    "https://mon-portofolio-frontend-nextjs.vercel.app",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.vercel\.app$"  # Pour les builds preview/dynamiques
@@ -158,11 +144,7 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
-ALLOWED_HOSTS = [
-    "monportofoliobackend.up.railway.app",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 CSRF_TRUSTED_ORIGINS = [
     "https://monportofoliobackend.up.railway.app",
     "https://mon-portofolio-frontend-nextjs.vercel.app",
@@ -176,6 +158,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     'origin',
 ]
 
+
 # Email
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "")
@@ -184,4 +167,3 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
-
