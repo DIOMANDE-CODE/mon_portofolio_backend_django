@@ -174,6 +174,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'CLOUDINARY_API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'CLOUDINARY_API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+    'CLOUDINARY_SECURE': True,  # pour forcer https
+    'CLOUDINARY_STATIC_FOLDER': 'static',  # dossier pour fichiers statiques (optionnel)
+    'CLOUDINARY_MEDIA_FOLDER': 'media',    # dossier pour médias (optionnel)
 }
-
-print(CLOUDINARY_STORAGE)
