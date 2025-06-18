@@ -19,13 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import JsonResponse
+from contact.views import acceuil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('projet/', include('projets.urls')),
     path('contact/', include('contact.urls')),
-    path('', lambda request: JsonResponse({"message": "Bienvenue sur mon API Django REST"})),
+    path('', acceuil, name='acceuil'),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

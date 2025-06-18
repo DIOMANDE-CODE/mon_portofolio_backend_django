@@ -48,3 +48,8 @@ def enregistrement_contact(request):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def acceuil(request):
+    return Response({
+        'message':'Bienvenue sur mon API'
+    }, status=status.HTTP_200_OK)
