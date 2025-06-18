@@ -1,9 +1,10 @@
 version: "3.9"
+
 services:
   web:
     build:
-      context: ./portofolio_backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./portofolio_backend/Dockerfile
     command: >
       gunicorn portofolio_backend.wsgi:application --bind 0.0.0.0:8000
     container_name: django_web
@@ -13,7 +14,7 @@ services:
       - "8000:8000"
     volumes:
       - ./portofolio_backend:/app
-      - db_data:/app/data
+    restart: always
 
 volumes:
   db_data:
