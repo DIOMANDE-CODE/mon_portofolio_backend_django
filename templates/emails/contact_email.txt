@@ -3,6 +3,7 @@ Nouveau message reçu
 Nom : {{ nom }}
 Email : {{ email }}
 Sujet : {{ sujet }}
+Numero : {{numero_telephone}}
 Message :
 {{ message }}
 
