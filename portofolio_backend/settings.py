@@ -135,11 +135,9 @@ AUTH_USER_MODEL = 'users.Utilisateur'
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    "https://mon-portofolio-frontend-nextjs.vercel.app",
+    "https://mon-portofolio-frontend-nextjs.vercel.app","https://monportofoliobackend.up.railway.app","http://localhost:3000"
 ]
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.vercel\.app$"  # Pour les builds preview/dynamiques
-]
+
 CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
@@ -147,6 +145,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 CSRF_TRUSTED_ORIGINS = [
     "https://monportofoliobackend.up.railway.app",
     "https://mon-portofolio-frontend-nextjs.vercel.app",
+    "http://localhost:3000",
 ]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
