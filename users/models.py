@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinValueValidator
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -32,7 +33,7 @@ class UtilisateurManager(BaseUserManager):
 
 class Utilisateur(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True) # Email sera utilisé pour la connexion
-    photo_profil = models.ImageField(upload_to='photo_profil/', blank=True, null=True) # Attribut pour ajouter sa photo de profil
+    photo_profil = CloudinaryField('photo_profil', blank=True, null=True) # Attribut pour ajouter sa photo de profil
     nom = models.CharField(max_length=200, blank=True, null=True) # Nom et Prenom de l'utilisateur
     fonctions = models.TextField(blank=True, null=True, help_text="Ex : Dévéloppeur - Designer - Formateur") # Liste des fonctions de l'Utilisateur
     slogan = models.CharField(max_length=200, blank=True, null=True) # Slogan de l'utilisateur
