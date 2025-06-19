@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     # Bibliothèques installées
     'rest_framework',
     'corsheaders',
+    'cloudinary_storage', 
     'cloudinary',
-    'cloudinary_storage',
 
     # Applications créées
     'users',
@@ -168,13 +168,14 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUDINARY_CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'CLOUDINARY_API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'CLOUDINARY_API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-    'CLOUDINARY_SECURE': True,  # pour forcer https
-    'CLOUDINARY_STATIC_FOLDER': 'static',  # dossier pour fichiers statiques (optionnel)
-    'CLOUDINARY_MEDIA_FOLDER': 'media',    # dossier pour médias (optionnel)
+    'CLOUDINARY_CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'CLOUDINARY_API_KEY': os.getenv('API_KEY'),
+    'CLOUDINARY_API_SECRET': os.getenv('API_SECRET'),
+    'CLOUDINARY_SECURE': True,  # pour forcer le HTTPS
+    'CLOUDINARY_STATIC_FOLDER': 'static',  # optionnel
+    'CLOUDINARY_MEDIA_FOLDER': 'media',    # optionnel
 }
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
