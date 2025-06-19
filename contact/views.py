@@ -13,6 +13,8 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -50,6 +52,6 @@ def enregistrement_contact(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def acceuil(request):
-    return Response({
-        'message':'Bienvenue sur mon API'
-    }, status=status.HTTP_200_OK)
+    return JsonResponse({
+        'message':'Bienvenue sur mon API backend'
+    })
