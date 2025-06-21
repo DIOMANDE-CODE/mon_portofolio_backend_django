@@ -11,5 +11,4 @@ urlpatterns = [
 
     # Afficher les visuels
     path('visuel/list/', liste_des_visuels, name='liste_des_visuels'),
-
 ]

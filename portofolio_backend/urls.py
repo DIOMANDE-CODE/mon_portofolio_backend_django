@@ -22,7 +22,7 @@ from django.http import JsonResponse
 from contact.views import acceuil
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('owner/', admin.site.urls),
     path('users/', include('users.urls')),
     path('projet/', include('projets.urls')),
     path('contact/', include('contact.urls')),
