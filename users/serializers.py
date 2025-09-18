@@ -19,7 +19,6 @@ class UtilisateurSerializer(serializers.ModelSerializer):
         read_only_fields = ['id','date_creation', 'date_modification']
 
     def create(self, validated_data):
-        print("validated_data reçu dans create:", validated_data)
         competences = validated_data.pop('competences', [])
         password = validated_data.pop('password', None)
 
