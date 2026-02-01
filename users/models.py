@@ -42,7 +42,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True
     )
-    nom = models.CharField(max_length=200, default="")
+    nom = models.CharField(max_length=200, blank=True, null=True)
     fonctions = models.TextField(blank=True, null=True, help_text="Ex : Dévéloppeur - Designer - Formateur")
     slogan = models.CharField(max_length=200, blank=True, null=True)
     nombre_projet = models.IntegerField(default=0, validators=[MinValueValidator(0)], null=True, blank=True)
