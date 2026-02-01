@@ -5,7 +5,7 @@ from .models import Categorie_Projet, Technologie, Projet, Visuel
 
 @admin.register(Categorie_Projet)
 class CategoryProjetAdmin(admin.ModelAdmin):
-    list_display = ('nom_categorie', 'image_categorie', 'description_categorie',)
+    list_display = ('id','nom_categorie', 'image_categorie', 'description_categorie',)
     search_fields = ('nom_categorie',)
     ordering = ['nom_categorie']
 

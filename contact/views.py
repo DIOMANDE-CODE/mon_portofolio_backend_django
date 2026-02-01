@@ -19,7 +19,6 @@ from django.http import JsonResponse
 # Create your views here.
 
 # API POST : Enregistrement d'un contact
-@csrf_exempt
 @permission_classes([AllowAny])
 @api_view(['POST'])
 def enregistrement_contact(request):
