@@ -5,9 +5,11 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
+def default_photo_profil():
+    return 'https://res.cloudinary.com/darkqhocp/image/upload/v1769904804/MA_PHOTO_lc1kdj.jpg'
+
 class Competence(models.Model):
     nom_competence = models.CharField(max_length=100)
-
     def __str__(self):
         return self.nom_competence
 
@@ -16,7 +18,7 @@ class UtilisateurManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
 
         if not email :
-            ValueError("Veuillez inscrire votre adresse E-mail")
+            raise ValueError("Veuillez inscrire votre adresse E-mail")
 
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -32,29 +34,43 @@ class UtilisateurManager(BaseUserManager):
 
 
 class Utilisateur(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True) # Email sera utilisé pour la connexion
-    photo_profil = CloudinaryField('photo_profil', blank=True, null=True) # Attribut pour ajouter sa photo de profil
-    nom = models.CharField(max_length=200, blank=True, null=True) # Nom et Prenom de l'utilisateur
-    fonctions = models.TextField(blank=True, null=True, help_text="Ex : Dévéloppeur - Designer - Formateur") # Liste des fonctions de l'Utilisateur
-    slogan = models.CharField(max_length=200, blank=True, null=True) # Slogan de l'utilisateur
-    nombre_projet = models.IntegerField(default=0, blank=True, null=False, validators=[MinValueValidator(0)]) # Nombre de projets réalisés
-    nombre_recompense = models.IntegerField(default=0, blank=True, null=False, validators=[MinValueValidator(0)]) # Nombre de recompenses
-    lien_facebook = models.URLField(blank=True, null=True) # Lien facebook
-    lien_instagram = models.URLField(blank=True, null=True) # Lien instagram
-    lien_linkedin = models.URLField(blank=True, null=True) # Lien linkedIn
-    lien_twitter = models.URLField(blank=True, null=True) # Lien Twitter
-    lien_github = models.URLField(blank=True, null=True) # Lien github
-    biographie = models.TextField(null=True, blank=True) # Ajouter de la biographie
-    competences = models.ManyToManyField(Competence, related_name='profils', blank=True) # Donner ses compétences
+    email = models.EmailField(unique=True)
+    photo_profil = CloudinaryField(
+        'photo_profil',
+        folder='mes_projets/MonPortofolio/images/profil/',
+        default=default_photo_profil,
+        blank=True,
+        null=True
+    )
+    nom = models.CharField(max_length=200, blank=True, null=True)
+    fonctions = models.TextField(blank=True, null=True, help_text="Ex : Dévéloppeur - Designer - Formateur")
+    slogan = models.CharField(max_length=200, blank=True, null=True)
+    nombre_projet = models.IntegerField(default=0, validators=[MinValueValidator(0)], null=True, blank=True)
+    nombre_recompense = models.IntegerField(default=0, validators=[MinValueValidator(0)], null=True, blank=True)
+    lien_facebook = models.URLField(blank=True, null=True)
+    lien_instagram = models.URLField(blank=True, null=True)
+    lien_linkedin = models.URLField(blank=True, null=True)
+    lien_twitter = models.URLField(blank=True, null=True)
+    lien_github = models.URLField(blank=True, null=True)
+    biographie = models.TextField(null=True, blank=True)
+    competences = models.ManyToManyField(Competence, related_name='profils', blank=True)
 
-    date_creation = models.DateTimeField(auto_now_add=True) # Date de création de l'utilisateur
-    date_modification = models.DateTimeField(auto_now=True) # Date modification des infos utilisateurs
-    is_active = models.BooleanField(default=True) # Possibilité de se connecter
-    is_staff = models.BooleanField(default=False) # Accès à la page de d'administration 
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_modification = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     objects = UtilisateurManager()
 
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return self.email   
+        if self.email and str(self.email).strip():
+            return str(self.email)
+        if self.nom and str(self.nom).strip():
+            return str(self.nom)
+        if self.pk:
+            return f"Utilisateur {self.pk}"
+        return "Utilisateur inconnu"
+
+

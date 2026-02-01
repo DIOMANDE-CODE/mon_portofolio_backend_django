@@ -11,6 +11,10 @@ class CompetenceAdmin(admin.ModelAdmin):
 
 @admin.register(Utilisateur)
 class UtilisateurAdmin(admin.ModelAdmin):
-    list_display = ('email', 'nom', 'photo_profil', 'is_active', 'is_superuser',)
-    search_fields = ('email','nom',)
+    list_display = ('email', 'nom', 'get_photo', 'is_active', 'is_superuser')
+    search_fields = ('email', 'nom',)
     ordering = ['nom']
+
+    def get_photo(self, obj):
+        return str(obj.photo_profil) if obj.photo_profil else "Pas de photo"
+    get_photo.short_description = "Photo de profil"

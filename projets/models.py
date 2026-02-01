@@ -4,9 +4,14 @@ from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
 # Create your models here.
 
+
+
+def default_image_projet():
+    return 'https://res.cloudinary.com/darkqhocp/image/upload/v1769903630/image-informatique_rgwyv3.jpg'
+
 class Categorie_Projet(models.Model):
     nom_categorie = models.CharField(max_length=100) # nom de la categorie
-    image_categorie = CloudinaryField('image_categorie', null=True, blank=True) # nom de la categorie
+    image_categorie = CloudinaryField('image_categorie',folder='mes_projets/MonPortofolio/images/categorie/', default=default_image_projet, null=True, blank=True) # nom de la categorie
     description_categorie = models.TextField(null=True, blank=True) # description du projet
 
     def __str__(self):
@@ -23,7 +28,7 @@ class Visuel(models.Model):
     proprietaire = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='visuels')
     categorie_visuel = models.ForeignKey(Categorie_Projet, on_delete=models.CASCADE, related_name='visuels') # Catgegorie de l'image
     titre_visuel = models.CharField(max_length=200, null=True) # Titre du visuel
-    image_visuel = CloudinaryField('image_visuel') # fichier de l'image
+    image_visuel = CloudinaryField('image_visuel', folder='mes_projets/MonPortofolio/images/visuels/', default=default_image_projet) # fichier de l'image
     description_visuel = models.TextField(null=True, blank=True) # Description Visuel
 
     date_creation = models.DateField(auto_now=True) # Date de creation
@@ -37,7 +42,7 @@ class Projet(models.Model):
     description_projet = models.TextField(blank=True, null=True) # description du projet
     categorie_projet = models.ForeignKey(Categorie_Projet, on_delete=models.CASCADE, related_name='projets', blank=True, null=True) # categorie du projet
     technologie = models.ManyToManyField(Technologie, blank=True, help_text='technologies/logiciels utilisés') # Technologie utilisée
-    image_projet = CloudinaryField('image_projet', blank=True, null=True) # image du projet
+    image_projet = CloudinaryField('image_projet', folder='mes_projets/MonPortofolio/images/projets/', default=default_image_projet, blank=True, null=True) # image du projet
 
     lien_drive = models.URLField(blank=True, null=True, help_text='lien drive du projet') # lien drive du projet
     lien_facebook = models.URLField(blank=True, null=True, help_text='lien facebook du projet') # lien facebook du projet

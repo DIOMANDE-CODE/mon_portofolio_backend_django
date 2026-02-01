@@ -13,9 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import dj_database_url
 from corsheaders.defaults import default_headers
-import cloudinary_storage
 
 # Charger le fichier .env (utile en développement)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +23,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # Mode debug
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG')
 
 
 # Application definition
@@ -89,22 +87,12 @@ WSGI_APPLICATION = 'portofolio_backend.wsgi.application'
 
 # Base de données
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else :
-    DATABASES = {
-        'default': {
-            'ENGINE': os.getenv("DB_ENGINE", ""),
-            'NAME': os.getenv("DB_NAME", ""),
-            'USER': os.getenv("DB_USER", ""),
-            'PASSWORD': os.getenv("DB_PASSWORD", ""),
-            'HOST': os.getenv("DB_HOST", ""),
-            'PORT': os.getenv("DB_PORT", ""),
-        }
-    }
+}
 
 
 # Validation mot de passe
@@ -126,6 +114,8 @@ STATIC_URL = 'static/'
 # Chemin où collectstatic va stocker les fichiers
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Clé auto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -167,8 +157,6 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
 
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),

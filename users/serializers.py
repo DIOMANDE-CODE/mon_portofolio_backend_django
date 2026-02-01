@@ -10,16 +10,21 @@ class CompetenceUtilisateur(serializers.ModelSerializer):
 class UtilisateurSerializer(serializers.ModelSerializer):
     competences = CompetenceUtilisateur(required=False, many=True)
     password = serializers.CharField(write_only=True, required=True)
-    class Meta :
+
+    class Meta:
         model = Utilisateur
-        fields = ['email', 'photo_profil','password', 'nom','fonctions', 'slogan','nombre_projet', 'nombre_recompense', 'lien_facebook', 'lien_instagram','lien_twitter', 'lien_github', 'biographie', 'competences']
+        fields = [
+            'email', 'photo_profil', 'password', 'nom', 'fonctions', 'slogan',
+            'nombre_projet', 'nombre_recompense', 'lien_facebook', 'lien_instagram',
+            'lien_twitter', 'lien_github', 'biographie', 'competences'
+        ]
         extra_kwargs = {
-            'password':{'write_only':True}
+            'password': {'write_only': True}
         }
-        read_only_fields = ['id','date_creation', 'date_modification']
+        read_only_fields = ['id', 'date_creation', 'date_modification']
 
     def create(self, validated_data):
-        competences = validated_data.pop('competences', [])
+        competences_data = validated_data.pop('competences', [])
         password = validated_data.pop('password', None)
 
         if not password:
@@ -29,7 +34,9 @@ class UtilisateurSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
 
-        if competences:
-            user.competences.set(competences)
+        # Associer les compétences
+        for comp_data in competences_data:
+            comp, _ = Competence.objects.get_or_create(**comp_data)
+            user.competences.add(comp)
 
         return user
