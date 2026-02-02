@@ -15,7 +15,6 @@ from django.template.loader import render_to_string
 
 from django.http import JsonResponse
 
-
 # Create your views here.
 
 # API POST : Enregistrement d'un contact

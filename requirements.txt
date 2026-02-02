@@ -15,6 +15,7 @@ Faker==38.0.0
 gunicorn==23.0.0
 idna==3.10
 jmespath==1.0.1
+mailjet-rest==1.5.1
 packaging==25.0
 pillow==12.1.0
 pymongo==3.11.2
