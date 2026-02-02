@@ -132,12 +132,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Hôtes autorisés
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-CSRF_TRUSTED_ORIGINS = [
-    "https://mon-portofolio-serveur.onrender.com",
-    "https://mon-portofolio-frontend-nextjs.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:_8000",
-]
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
